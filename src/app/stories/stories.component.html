@@ -1,0 +1,65 @@
+<mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading"></mat-progress-bar>
+<p-table
+    #dt1
+    class="table table-hover"
+    [sortOrder]="-1"
+    [columns]="tableColumnHeaders"
+    [value]="storyList"
+    [paginator]="storyList.length"
+    [loading]="false"
+    [globalFilterFields]="['title']"
+    [rows]="10"
+    [rowsPerPageOptions]="[5, 10, 20, 50, 100]"
+    [lazy]="false"
+    sortField="id"
+    [totalRecords]="storyList.length"
+  >
+  <ng-template pTemplate="caption">
+    <input
+        type="text"
+           pInputText
+           (input)="dt1.filterGlobal(
+               $any($event.target).value, 'contains')" placeholder="Search" />
+</ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th
+          *ngFor="let col of columns"          
+          [pSortableColumn]="col.key"
+        >
+          {{ col.title }}
+          <p-sortIcon
+            *ngIf="col.key !== 'url'"
+            [field]="col.key"
+          ></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData">
+        <td *ngFor="let col of columns">
+          <ng-container [ngSwitch]="col.key">
+           
+            <div *ngSwitchCase="'url'">              
+             <a href="{{rowData[col.key]}}" target="_blank">{{!rowData[col.key] ? "" : "Read more" }}</a>
+            </div>
+            <div *ngSwitchDefault>
+              {{ rowData[col.key] }}
+            </div>
+          </ng-container>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td [attr.colspan]="columns.length" class="text-center">
+          <div>
+            <p class=" ">
+              No Records Found.
+            </p>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    
+  </p-table>
