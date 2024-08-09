@@ -2,6 +2,15 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.3.
 
+## Expernal API
+
+This project is depends on external API and base URL configured  in app.constant.ts file. Please update it
+accordingly per running your api 
+
+Configured Base URL:  http://localhost:5189/api/
+
+Port: Please change port per your API server's port
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
